@@ -4,8 +4,6 @@ import os
 # необходимо установить через: pip install google-api-python-client
 from googleapiclient.discovery import build
 
-os.environ['YT_API_KEY'] = 'AIzaSyDmvodVAPDoWVMQhSDRvRWZtDEgC2Joijw'
-
 
 class Channel:
     """Класс для ютуб-канала"""
@@ -15,7 +13,7 @@ class Channel:
         self.channel_id = channel_id
 
         # YT_API_KEY скопирован из гугла и вставлен в переменные окружения
-        self.api_key: str = os.getenv('YT_API_KEY')
+        self.api_key: str = os.getenv('API_KEY')
 
         # создать специальный объект для работы с API
         self.youtube = build('youtube', 'v3', developerKey=self.api_key)
