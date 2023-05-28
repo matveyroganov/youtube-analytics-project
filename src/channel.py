@@ -36,6 +36,42 @@ class Channel:
         # общее количество просмотров
         self.total_views = 2311490
 
+    def __str__(self):
+        """Возвращает название и ссылку на канал по шаблону `<название_канала> (<ссылка_на_канал>)"""
+        return f"{self.title} ({self.url})"
+
+    def __add__(self, other):
+        """Сложение экземпляров класса Channel"""
+        return self.subscribers + other.subscribers
+
+    def __sub__(self, other):
+        """Вычитание экземпляров класса Channel"""
+        return self.subscribers - other.subscribers
+
+    def __rsub__(self, other):
+        """Отраженное вычитание экземпляров класса Channel"""
+        return other.subscribers - self.subscribers
+
+    def __gt__(self, other):
+        """Сравнение 'больше' экземпляров класса Channel"""
+        return self.subscribers > other.subscribers
+
+    def __ge__(self, other):
+        """Сравнение 'больше или равно' экземпляров класса Channel"""
+        return self.subscribers >= other.subscribers
+
+    def __lt__(self, other):
+        """Сравнение 'меньше' экземпляров класса Channel"""
+        return self.subscribers < other.subscribers
+
+    def __le__(self, other):
+        """Сравнение 'меньше или равно' экземпляров класса Channel"""
+        return self.subscribers <= other.subscribers
+
+    def __eq__(self, other):
+        """Сравнение 'тождественно равно' экземпляров класса Channel"""
+        return self.subscribers == other.subscribers
+
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
 
