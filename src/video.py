@@ -8,20 +8,20 @@ class Video:
         self.video_id = video_id
 
         # получаем статистику видео по его id
-        video_response = Channel.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
-                                                       id=self.video_id
-                                                       ).execute()
+        self.video_response = Channel.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
+                                                            id=self.video_id
+                                                            ).execute()
         # ссылка на видео
         self.video_url = "https://www.youtube.com/watch?v=" + self.video_id
 
         # название видео
-        self.video_title: str = video_response['items'][0]['snippet']['title']
+        self.video_title: str = self.video_response['items'][0]['snippet']['title']
 
         # количество просмотров
-        self.view_count: int = video_response['items'][0]['statistics']['viewCount']
+        self.view_count: int = self.video_response['items'][0]['statistics']['viewCount']
 
         # количество лайков
-        self.like_count: int = video_response['items'][0]['statistics']['likeCount']
+        self.like_count: int = self.video_response['items'][0]['statistics']['likeCount']
 
     def __str__(self):
         """Возвращает название видео"""
@@ -45,18 +45,6 @@ class PLVideo(Video):
         video_ids: list[str] = [video['contentDetails']['videoId'] for video in playlist_videos['items']]
 
         # получаем статистику видео по его id
-        video_response = Channel.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
-                                                       id=','.join(video_ids)
-                                                       ).execute()
-
-        # ссылка на видео
-        self.video_url = "https://www.youtube.com/watch?v=" + self.video_id
-
-        # название видео
-        self.video_title: str = video_response['items'][0]['snippet']['title']
-
-        # количество просмотров
-        self.view_count: int = video_response['items'][0]['statistics']['viewCount']
-
-        # количество лайков
-        self.like_count: int = video_response['items'][0]['statistics']['likeCount']
+        self.video_response = Channel.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
+                                                            id=','.join(video_ids)
+                                                            ).execute()
