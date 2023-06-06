@@ -3,13 +3,13 @@ from src.channel import Channel
 
 class Video:
 
-    def __init__(self, video_id="gaoc9MPZ4bw"):
+    def __init__(self, video_id='gaoc9MPZ4bw'):
         """Экземпляр инициализируется id видео"""
         self.video_id = video_id
 
         # получаем статистику видео по его id
         self.video_response = Channel.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
-                                                            id=self.video_id
+                                                            id=video_id
                                                             ).execute()
         # ссылка на видео
         self.video_url = "https://www.youtube.com/watch?v=" + self.video_id
@@ -36,15 +36,15 @@ class PLVideo(Video):
         self.playlist_id = playlist_id
 
         # получаем данные по видеороликам в плейлисте
-        playlist_videos = Channel.youtube.playlistItems().list(playlistId=playlist_id,
-                                                               part='contentDetails',
-                                                               maxResults=50,
-                                                               ).execute()
+        self.playlist_videos = Channel.youtube.playlistItems().list(playlistId=playlist_id,
+                                                                    part='contentDetails',
+                                                                    maxResults=50,
+                                                                    ).execute()
 
         # получить все id видеороликов из плейлиста
-        video_ids: list[str] = [video['contentDetails']['videoId'] for video in playlist_videos['items']]
+        self.video_ids: list[str] = [video['contentDetails']['videoId'] for video in self.playlist_videos['items']]
 
         # получаем статистику видео по его id
         self.video_response = Channel.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
-                                                            id=','.join(video_ids)
+                                                            id=','.join(self.video_ids)
                                                             ).execute()
