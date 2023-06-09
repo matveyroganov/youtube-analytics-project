@@ -5,10 +5,24 @@ import isodate
 
 
 class Playlist:
+
     def __init__(self, playlist_id):
         """Инициализируется _id_ плейлиста"""
 
         self.playlist_id = playlist_id
+
+        # id канала
+        channel_id = 'UC-OVMPlMA3-YCIeg4z5z23A'
+
+        # получить данные по play-листам канала
+        playlists = Channel.youtube.playlists().list(channelId=channel_id,
+                                                     part='contentDetails,snippet',
+                                                     maxResults=50,
+                                                     ).execute()
+
+        for playlist in playlists['items']:
+            # название плейлиста
+            self.title = playlist['snippet']['title']
 
         # название плейлиста
         self.title = "Moscow Python Meetup №81"
