@@ -20,9 +20,7 @@ class Playlist:
                                                      maxResults=50,
                                                      ).execute()
 
-        for playlist in playlists['items']:
-            # название плейлиста
-            self.title = playlist['snippet']['title']
+        self.title = playlists['items'][0]['snippet']['title']
 
         # название плейлиста
         self.title = "Moscow Python Meetup №81"
